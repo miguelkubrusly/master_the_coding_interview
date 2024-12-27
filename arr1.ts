@@ -7,10 +7,9 @@ function solution(nums:number[], target:number):[number,number]|null {
   // ------------------------ //
 
   for (let p1 = 0; p1 < nums.length-1; p1++) {
-    const num1 = nums[p1]
-    for (let p2 = p1+1; p2 < nums.length; p2++) {
-      const num2 = nums[p2]
-      if (num2 == target-num1){
+    const numToFind = target - nums[p1]
+    for (let p2 = p1+1; p2 < nums.length; p2++) { 
+      if (nums[p2] == numToFind){
         return [p1,p2]
       }
     }
