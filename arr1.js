@@ -3,36 +3,26 @@ function twoSum(nums, target) {
     // BRUTE FORCE SOLUTION
     // O(n**2) - O(1)
     // ------------------------ //
-    // for (let p1 = 0; p1 < nums.length-1; p1++) {
-    //   const numToFind = target - nums[p1]
-    //   for (let p2 = p1+1; p2 < nums.length; p2++) {
-    //     if (nums[p2] == numToFind){
-    //       return [p1,p2]
+    // for (let i = 0; i < nums.length-1; i++) {
+    //   const complement = target - nums[i]
+    //   for (let p2 = i+1; p2 < nums.length; p2++) {
+    //     if (nums[p2] == complement){
+    //       return [i,p2]
     //     }
     //   }
     // }
     // return null
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
     // OPTIMAL SOLUTION
-    // O(n) - O(1)
+    // O(n) - O(n)
     // ------------------------ //
-    for (let p1 = 0; p1 < nums.length; p1++) {
-        const numToFind = target - nums[p1];
-        const sortedNums = nums.slice(p1 + 1).sort((a, b) => a - b);
-        let start = 0, end = sortedNums.length - 1;
-        while (start < end) {
-            const middle = Math.floor(end - start / 2);
-            const middle_num = sortedNums[middle];
-            if (middle_num < numToFind) {
-                start = middle + 1;
-            }
-            else if (middle_num > numToFind) {
-                end = middle - 1;
-            }
-            else {
-                return [p1, nums.indexOf(middle_num)];
-            }
+    const numToIndex = new Map();
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
+        if (numToIndex.has(complement)) {
+            return [numToIndex.get(complement), i];
         }
+        numToIndex.set(nums[i], i);
     }
     return null;
 }
