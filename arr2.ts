@@ -1,10 +1,10 @@
 export {};
 
-function solution(nums: number[]): number {
-  let maxArea = 0;
+function maxArea(height: number[]): number {
+  let res = 0;
 
-  if (nums.length < 2) {
-    return maxArea;
+  if (height.length < 2) {
+    return res;
   }
 
   // BRUTE FORCE
@@ -18,43 +18,50 @@ function solution(nums: number[]): number {
       const area = heigh * width;
       maxArea = Math.max(maxArea, area);
     }
-  } */
-  // ====================================================== //
-  // ====================================================== //
-  // ====================================================== //
-
+  }
+ */
   // OPTIMAL
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
-
-  return maxArea;
+  let p1 = 0,
+    p2 = height.length - 1;
+  while (p1 < p2) {
+    const minHeight = Math.min(height[p1], height[p2]);
+    res = Math.max(minHeight * (p2 - p1), res);
+    if (height[p1] <= height[p2]) {
+      p1++;
+    } else {
+      p2--;
+    }
+  }
+  return res;
 }
 
-const a = solution([1, 6, 9, 1]);
+const a = maxArea([1, 6, 9, 1]);
 console.log("====================================");
 console.log("Should be: 6");
 console.log(a);
 
-const b = solution([3, 3, 9, 9, 1, 0, 4]);
+const b = maxArea([3, 3, 9, 9, 1, 0, 4]);
 console.log("====================================");
 console.log("Should be: 18");
 console.log(b);
 
-const c = solution([1]);
+const c = maxArea([1]);
 console.log("====================================");
 console.log("Should be: 0");
 console.log(c);
 
-const d = solution([]);
+const d = maxArea([]);
 console.log("====================================");
 console.log("Should be: 0");
 console.log(d);
 
-const e = solution([1000, 0, 1, 10, 2]);
+const e = maxArea([1000, 0, 1, 10, 2]);
 console.log("====================================");
 console.log("Should be: 30");
 console.log(e);
 
-const f = solution([
+const f = maxArea([
   12, 30, 51, 72, 83, 34, 65, 76, 87, 21, 48, 59, 42, 64, 10, 22, 31, 73, 70,
 ]);
 console.log("====================================");
